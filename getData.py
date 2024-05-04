@@ -11,7 +11,6 @@ async def connect():
 async def get_data(websocket):
   b_response=await websocket.recv()
   data = json.loads(b_response)
-  # print(data)
   isClose = data['k']['x']
   time =  data['E']
   time_formatted = datetime.fromtimestamp(time/1000).strftime('%H:%M')
@@ -23,7 +22,6 @@ async def get_data(websocket):
             "close":data['k']['c'],
             "operation":"SELL",
             "time":time_formatted}
-    # print(result)
     return result
 
 if __name__ == "__main__":

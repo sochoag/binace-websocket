@@ -1,5 +1,6 @@
 import asyncio
 import websockets
+import os
 
 from publishData import publish_data
 from getData import get_data
@@ -15,9 +16,10 @@ async def receive_and_publish_data(websocket):
                 print("No clients connected. Waiting for connections...")
                 break
 async def start_server():
+    port = int(os.environ.get("PORT", 8000))
     try:
       print("WebSocket server started. Waiting for connections...")
-      async with websockets.serve(receive_and_publish_data, 'localhost', 8000):
+      async with websockets.serve(receive_and_publish_data, '0.0.0.0', port):
           await asyncio.Future()
     except:
       print("Server shutting down...")

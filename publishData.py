@@ -2,7 +2,7 @@ import asyncio
 import websockets
 import time
 import json
-payLoad= {
+values= {
   "coin":"BTCUSDT",
   "high":1000,
   "low":500,
@@ -11,14 +11,15 @@ payLoad= {
   "operation":"BUY/SELL",
   "time": "HH:MM"
 }
-async def handler(websocket):
+async def publish_data(websocket, payload):
     while True :
-        response= json.dumps(payLoad)
+        response= json.dumps(payload)
         await websocket.send(response)
         print(response)
         await asyncio.sleep(1)
 
-start_server = websockets.serve(handler, "localhost", 8000)
+if __name__ == "__main__":
+  start_server = websockets.serve(publish_data, "localhost", 8000)
 
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
+  asyncio.get_event_loop().run_until_complete(start_server)
+  asyncio.get_event_loop().run_forever()

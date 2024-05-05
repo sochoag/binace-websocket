@@ -2,7 +2,7 @@
 import asyncio
 import websockets
 import json
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 last_price = [None,None,None,None,None]
 
@@ -21,7 +21,12 @@ async def get_data(websocket):
   if isClose:
 
     time =  data['data']['E']
-    time_formatted = datetime.fromtimestamp(time/1000).strftime('%H:%M')
+
+    GTM5 = timezone(timedelta(hours=-5))
+
+    time_formatted = datetime.fromtimestamp(time/1000, tz=GTM5).strftime('%H:%M')
+
+    print(time_formatted)
 
     price = float(data['data']['k']['c'])
 

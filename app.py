@@ -6,7 +6,7 @@ from publishData import publish_data
 from getData import get_data
 
 async def receive_and_publish_data(websocket):
-    async with  websockets.connect('wss://fstream.binance.com/ws/btcusdt@kline_1m') as binance_socket:
+    async with  websockets.connect('wss://fstream.binance.com/stream?streams=btcusdt@kline_1m/bnbusdt@kline_1m/ethusdt@kline_1m/solusdt@kline_1m/xrpusdt@kline_1m') as binance_socket:
           while True:
             data = await get_data(binance_socket)
             if data:

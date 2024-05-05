@@ -1,7 +1,6 @@
 import asyncio
 import websockets
 import os
-
 from publishData import publish_data
 from getData import get_data
 

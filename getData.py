@@ -25,17 +25,9 @@ async def get_data(websocket):
 
     price = float(data['data']['k']['c'])
 
-    match data['data']['s']:
-      case "BTCUSDT":
-        index = 0
-      case "BNBUSDT":
-        index = 1
-      case "ETHUSDT":
-        index = 2
-      case "SOLUSDT":
-        index = 3
-      case "XRPUSDT":
-        index = 4
+    coins = ['BTCUSDT', 'BNBUSDT', 'ETHUSDT', 'SOLUSDT', 'XRPUSDT']
+
+    index = coins.index(data['data']['s'])
 
     if last_price[index] is not None:
       if last_price[index] > price:
@@ -43,7 +35,7 @@ async def get_data(websocket):
       else:
         operation = "BUY"
     else:
-      operation = None
+      operation = "SELL"
 
     last_price[index] = price
 

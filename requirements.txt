@@ -1,2 +1,4 @@
 asyncio==3.4.3
+dnspython==2.6.1
+pymongo==4.7.1
 websockets==12.0

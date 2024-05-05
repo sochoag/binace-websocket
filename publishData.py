@@ -11,7 +11,7 @@ collection = db[MONGO_COLLECTION]
 async def insert_data(payload):
   try:
     collection.insert_one(payload)
-    print(" ✅✅✅✅ Data saved to MongoDB successfully! ✅✅✅")
+    # print(" ✅✅✅✅ Data saved to MongoDB successfully! ✅✅✅")
     return payload['coin']
   except Exception as e:
     print(f"Error saving data to MongoDB: {e}")
@@ -25,7 +25,7 @@ async def get_last_ten_records(coin):
     response["operations"] = []
     response["time"] = []
 
-    registers = collection.find({"coin":f"{coin}"}).sort('time', DESCENDING).limit(10)
+    registers = collection.find({"coin":f"{coin}"}).sort({'$natural':-1}).limit(10)
 
     for register in registers:
       
@@ -42,7 +42,9 @@ async def get_last_ten_records(coin):
 async def publish_data(websocket, payload):
     response = json.dumps(payload)
     await websocket.send(response)
-    print("response sent:", response)
+    print("-------------------------------------------")
+    print(response)
+    print("-------------------------------------------")
 
 if __name__ == "__publish_data__":
   asyncio.run(publish_data())

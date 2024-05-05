@@ -22,7 +22,7 @@ async def save_data_to_mongo(data):
        client.close()  # Ensure connection is closed
 
 async def main():
-    """Continuously sends data to MongoDB every 5 minutes."""
+    """Continuously sends data to MongoDB every 10 seconds."""
     while True:
         # Replace with your logic to generate data (e.g., API call, sensor reading)
         result = {"coin": '123',  # Replace with actual data generation
@@ -34,7 +34,7 @@ async def main():
                 "time": time.strftime('%H:%M:%S')}
 
         await save_data_to_mongo(result)
-        await asyncio.sleep(1)  # Wait for 5 minutes (300 seconds)
+        await asyncio.sleep(1)  # Wait for 10 seconds
 
 
 if __name__ == "__main__":

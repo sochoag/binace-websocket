@@ -16,16 +16,16 @@ async def receive_and_publish_data(websocket, path):
         await publish_data(websocket, response)
 
       async with  websockets.connect('wss://fstream.binance.com/stream?streams=btcusdt@kline_1m/bnbusdt@kline_1m/ethusdt@kline_1m/solusdt@kline_1m/xrpusdt@kline_1m') as binance_socket:
-          while True:
-            data = await get_data(binance_socket)
-            if data:
-              try:
+          try:
+            while True:
+              data = await get_data(binance_socket)
+              if data:
                 coin = await insert_data(data)
                 response = await get_last_ten_records(coin)
                 await publish_data(websocket, response)
-              except websockets.exceptions.ConnectionClosedOK:
-                print("No clients connected. Waiting for connections...")
-                break
+          except websockets.exceptions.ConnectionClosedOK:
+            print("No clients connected. Waiting for connections...")
+            
     if path == "/BTCUSDT":
       response = await get_last_ten_records()
       await publish_data(websocket, response)

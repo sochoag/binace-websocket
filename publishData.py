@@ -43,7 +43,7 @@ async def publish_data(websocket, payload):
     response = json.dumps(payload)
     await websocket.send(response)
     print("-------------------------------------------")
-    print(response)
+    print("Response:"+response)
     print("-------------------------------------------")
 
 if __name__ == "__publish_data__":
